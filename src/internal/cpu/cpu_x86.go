@@ -65,13 +65,13 @@ func doinit() {
 			option{Name: "sse3", Feature: &X86.HasSSE3},
 			option{Name: "sse41", Feature: &X86.HasSSE41},
 			option{Name: "sse42", Feature: &X86.HasSSE42},
-			option{Name: "ssse3", Feature: &X86.HasSSSE3})
+			option{Name: "ssse3", Feature: &X86.HasSSSE3},
+			option{Name: "avx", Feature: &X86.HasAVX},)
 	}
 	if level < 3 {
 		// These options are required at level 3. At lower levels
 		// they can be turned off.
 		options = append(options,
-			option{Name: "avx", Feature: &X86.HasAVX},
 			option{Name: "avx2", Feature: &X86.HasAVX2},
 			option{Name: "bmi1", Feature: &X86.HasBMI1},
 			option{Name: "bmi2", Feature: &X86.HasBMI2},

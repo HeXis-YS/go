@@ -8,6 +8,7 @@
 #ifdef GOAMD64_v2
 #define hasPOPCNT
 #define hasSSE42
+#define hasAVX
 #endif
 
 #ifdef GOAMD64_v3
