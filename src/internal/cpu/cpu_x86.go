@@ -66,7 +66,7 @@ func doinit() {
 			option{Name: "sse41", Feature: &X86.HasSSE41},
 			option{Name: "sse42", Feature: &X86.HasSSE42},
 			option{Name: "ssse3", Feature: &X86.HasSSSE3},
-			option{Name: "avx", Feature: &X86.HasAVX},)
+			option{Name: "avx", Feature: &X86.HasAVX})
 	}
 	if level < 3 {
 		// These options are required at level 3. At lower levels
