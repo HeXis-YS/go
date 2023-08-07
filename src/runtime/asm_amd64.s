@@ -95,12 +95,12 @@ GLOBL bad_cpu_msg<>(SB), RODATA, $84
 // Define a list of AMD64 microarchitecture level features
 // https://en.wikipedia.org/wiki/X86-64#Microarchitecture_levels
 
-                     // SSE3     SSSE3    CMPXCHNG16 SSE4.1    SSE4.2    POPCNT
-#define V2_FEATURES_CX (1 << 0 | 1 << 9 | 1 << 13  | 1 << 19 | 1 << 20 | 1 << 23)
+                     // SSE3     SSSE3    CMPXCHNG16 SSE4.1    SSE4.2    POPCNT    OSXSAVE   AVX       F16C
+#define V2_FEATURES_CX (1 << 0 | 1 << 9 | 1 << 13  | 1 << 19 | 1 << 20 | 1 << 23 | 1 << 27 | 1 << 28 | 1 << 29)
                          // LAHF/SAHF
 #define V2_EXT_FEATURES_CX (1 << 0)
-                                      // FMA       MOVBE     OSXSAVE   AVX       F16C
-#define V3_FEATURES_CX (V2_FEATURES_CX | 1 << 12 | 1 << 22 | 1 << 27 | 1 << 28 | 1 << 29)
+                                      // FMA       MOVBE
+#define V3_FEATURES_CX (V2_FEATURES_CX | 1 << 12 | 1 << 22)
                                               // ABM (FOR LZNCT)
 #define V3_EXT_FEATURES_CX (V2_EXT_FEATURES_CX | 1 << 5)
                          // BMI1     AVX2     BMI2
@@ -120,6 +120,7 @@ GLOBL bad_cpu_msg<>(SB), RODATA, $84
 #define NEED_MAX_CPUID 0x80000001
 #define NEED_FEATURES_CX V2_FEATURES_CX
 #define NEED_EXT_FEATURES_CX V2_EXT_FEATURES_CX
+#define NEED_OS_SUPPORT_AX V3_OS_SUPPORT_AX
 #endif
 
 #ifdef GOAMD64_v3
