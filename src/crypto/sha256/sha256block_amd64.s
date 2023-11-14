@@ -619,7 +619,7 @@
 	SHA256RNDS2		msg, state1, state0		\
 	sha256Msg1		(m,a)
 
-TEXT ·block(SB), 0, $536-32
+TEXT ·block_std(SB), 0, $536-32
 	CMPB	·useSHA(SB), $1
 	JE	sha_ni
 	CMPB	·useAVX2(SB), $1

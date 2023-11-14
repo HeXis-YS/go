@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build 386 || s390x || ppc64le || ppc64
-
 package sha256
 
 //go:noescape
-func block(dig *digest, p []byte)
+func block_std(dig *digest, p []byte)
+
+//go:noescape
+func blockAVX(h []uint32, message []uint8, reserved0, reserved1, reserved2, reserved3 uint64)
