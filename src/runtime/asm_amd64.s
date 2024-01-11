@@ -82,6 +82,10 @@ GLOBL _rt0_amd64_lib_argv<>(SB),NOPTR, $8
 DATA bad_cpu_msg<>+0x00(SB)/84, $"This program can only be run on AMD64 processors with v2 microarchitecture support.\n"
 #endif
 
+#ifdef GOAMD64_v2e
+DATA bad_cpu_msg<>+0x00(SB)/85, $"This program can only be run on AMD64 processors with v2E microarchitecture support.\n"
+#endif
+
 #ifdef GOAMD64_v3
 DATA bad_cpu_msg<>+0x00(SB)/84, $"This program can only be run on AMD64 processors with v3 microarchitecture support.\n"
 #endif
@@ -90,7 +94,11 @@ DATA bad_cpu_msg<>+0x00(SB)/84, $"This program can only be run on AMD64 processo
 DATA bad_cpu_msg<>+0x00(SB)/84, $"This program can only be run on AMD64 processors with v4 microarchitecture support.\n"
 #endif
 
+#ifdef GOAMD64_v2e
+GLOBL bad_cpu_msg<>(SB), RODATA, $85
+#else
 GLOBL bad_cpu_msg<>(SB), RODATA, $84
+#endif
 
 // Define a list of AMD64 microarchitecture level features
 // https://en.wikipedia.org/wiki/X86-64#Microarchitecture_levels
@@ -99,6 +107,8 @@ GLOBL bad_cpu_msg<>(SB), RODATA, $84
 #define V2_FEATURES_CX (1 << 0 | 1 << 9 | 1 << 13  | 1 << 19 | 1 << 20 | 1 << 23)
                          // LAHF/SAHF
 #define V2_EXT_FEATURES_CX (1 << 0)
+                                       // OSXSAVE   AVX       F16C
+#define V2E_FEATURES_CX (V2_FEATURES_CX | 1 << 27 | 1 << 28 | 1 << 29)
                                       // FMA       MOVBE     OSXSAVE   AVX       F16C
 #define V3_FEATURES_CX (V2_FEATURES_CX | 1 << 12 | 1 << 22 | 1 << 27 | 1 << 28 | 1 << 29)
                                               // ABM (FOR LZNCT)
@@ -119,6 +129,12 @@ GLOBL bad_cpu_msg<>(SB), RODATA, $84
 #ifdef GOAMD64_v2
 #define NEED_MAX_CPUID 0x80000001
 #define NEED_FEATURES_CX V2_FEATURES_CX
+#define NEED_EXT_FEATURES_CX V2_EXT_FEATURES_CX
+#endif
+
+#ifdef GOAMD64_v2e
+#define NEED_MAX_CPUID 0x80000001
+#define NEED_FEATURES_CX V2E_FEATURES_CX
 #define NEED_EXT_FEATURES_CX V2_EXT_FEATURES_CX
 #endif
 
@@ -364,7 +380,11 @@ bad_cpu: // show that the program requires a certain microarchitecture level.
 	MOVQ	$2, 0(SP)
 	MOVQ	$bad_cpu_msg<>(SB), AX
 	MOVQ	AX, 8(SP)
+#ifdef GOAMD64_v2e
+	MOVQ	$85, 16(SP)
+#else
 	MOVQ	$84, 16(SP)
+#endif
 	CALL	runtime·write(SB)
 	MOVQ	$1, 0(SP)
 	CALL	runtime·exit(SB)

@@ -25,12 +25,12 @@ func rewriteValueAMD64latelower_OpAMD64SARL(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SARL x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SARXL x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SARXL)
@@ -43,12 +43,12 @@ func rewriteValueAMD64latelower_OpAMD64SARQ(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SARQ x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SARXQ x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SARXQ)
@@ -61,12 +61,12 @@ func rewriteValueAMD64latelower_OpAMD64SHLL(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SHLL x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SHLXL x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SHLXL)
@@ -79,12 +79,12 @@ func rewriteValueAMD64latelower_OpAMD64SHLQ(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SHLQ x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SHLXQ x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SHLXQ)
@@ -97,12 +97,12 @@ func rewriteValueAMD64latelower_OpAMD64SHRL(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SHRL x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SHRXL x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SHRXL)
@@ -115,12 +115,12 @@ func rewriteValueAMD64latelower_OpAMD64SHRQ(v *Value) bool {
 	v_1 := v.Args[1]
 	v_0 := v.Args[0]
 	// match: (SHRQ x y)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (SHRXQ x y)
 	for {
 		x := v_0
 		y := v_1
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64SHRXQ)

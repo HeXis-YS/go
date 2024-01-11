@@ -28,15 +28,19 @@ TEXT ·xgetbv(SB),NOSPLIT,$0-8
 // func getGOAMD64level() int32
 TEXT ·getGOAMD64level(SB),NOSPLIT,$0-4
 #ifdef GOAMD64_v4
-	MOVL $4, ret+0(FP)
+	MOVL $5, ret+0(FP)
 #else
 #ifdef GOAMD64_v3
+	MOVL $4, ret+0(FP)
+#else
+#ifdef GOAMD64_v2e
 	MOVL $3, ret+0(FP)
 #else
 #ifdef GOAMD64_v2
 	MOVL $2, ret+0(FP)
 #else
 	MOVL $1, ret+0(FP)
+#endif
 #endif
 #endif
 #endif

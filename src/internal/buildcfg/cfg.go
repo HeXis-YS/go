@@ -26,6 +26,7 @@ var (
 	GOOS     = envOr("GOOS", defaultGOOS)
 	GO386    = envOr("GO386", defaultGO386)
 	GOAMD64  = goamd64()
+	GOAMD64S = envOr("GOAMD64", defaultGOAMD64)
 	GOARM    = goarm()
 	GOMIPS   = gomips()
 	GOMIPS64 = gomips64()
@@ -60,12 +61,14 @@ func goamd64() int {
 		return 1
 	case "v2":
 		return 2
-	case "v3":
+	case "v2e":
 		return 3
-	case "v4":
+	case "v3":
 		return 4
+	case "v4":
+		return 5
 	}
-	Error = fmt.Errorf("invalid GOAMD64: must be v1, v2, v3, v4")
+	Error = fmt.Errorf("invalid GOAMD64: must be v1, v2, v2e, v3, v4")
 	return int(defaultGOAMD64[len("v")] - '0')
 }
 
@@ -201,8 +204,20 @@ func gogoarchTags() []string {
 		return []string{GOARCH + "." + GO386}
 	case "amd64":
 		var list []string
-		for i := 1; i <= GOAMD64; i++ {
-			list = append(list, fmt.Sprintf("%s.v%d", GOARCH, i))
+		if GOAMD64 <= 1 {
+			list = append(list, fmt.Sprintf("%s.v1", GOARCH))
+		}
+		if GOAMD64 <= 2 {
+			list = append(list, fmt.Sprintf("%s.v2", GOARCH))
+		}
+		if GOAMD64 <= 3 {
+			list = append(list, fmt.Sprintf("%s.v2e", GOARCH))
+		}
+		if GOAMD64 <= 4 {
+			list = append(list, fmt.Sprintf("%s.v3", GOARCH))
+		}
+		if GOAMD64 <= 5 {
+			list = append(list, fmt.Sprintf("%s.v4", GOARCH))
 		}
 		return list
 	case "arm":

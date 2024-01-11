@@ -10,6 +10,12 @@
 #define hasSSE42
 #endif
 
+#ifdef GOAMD64_v2e
+#define hasAVX
+#define hasPOPCNT
+#define hasSSE42
+#endif
+
 #ifdef GOAMD64_v3
 #define hasAVX
 #define hasAVX2

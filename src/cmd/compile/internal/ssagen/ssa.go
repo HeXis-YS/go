@@ -4489,7 +4489,7 @@ func InitTables() {
 				return s.variable(n, types.Types[types.TFLOAT64])
 			}
 
-			if buildcfg.GOAMD64 >= 3 {
+			if buildcfg.GOAMD64 >= 4 {
 				return s.newValue3(ssa.OpFMA, types.Types[types.TFLOAT64], args[0], args[1], args[2])
 			}
 
@@ -4555,7 +4555,7 @@ func InitTables() {
 
 	makeRoundAMD64 := func(op ssa.Op) func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
 		return func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
-			if buildcfg.GOAMD64 >= 2 {
+			if buildcfg.GOAMD64 >= 3 {
 				return s.newValue1(op, types.Types[types.TFLOAT64], args[0])
 			}
 
@@ -4771,7 +4771,7 @@ func InitTables() {
 
 	makeOnesCountAMD64 := func(op ssa.Op) func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
 		return func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
-			if buildcfg.GOAMD64 >= 2 {
+			if buildcfg.GOAMD64 >= 3 {
 				return s.newValue1(op, types.Types[types.TINT], args[0])
 			}
 

@@ -2690,7 +2690,7 @@ func rewriteValueAMD64_OpAMD64ANDL(v *Value) bool {
 		break
 	}
 	// match: (ANDL x (NOTL y))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (ANDNL x y)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
@@ -2699,7 +2699,7 @@ func rewriteValueAMD64_OpAMD64ANDL(v *Value) bool {
 				continue
 			}
 			y := v_1.Args[0]
-			if !(buildcfg.GOAMD64 >= 3) {
+			if !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64ANDNL)
@@ -2709,12 +2709,12 @@ func rewriteValueAMD64_OpAMD64ANDL(v *Value) bool {
 		break
 	}
 	// match: (ANDL x (NEGL x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (BLSIL x)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64NEGL || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64NEGL || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64BLSIL)
@@ -2724,13 +2724,13 @@ func rewriteValueAMD64_OpAMD64ANDL(v *Value) bool {
 		break
 	}
 	// match: (ANDL <t> x (ADDLconst [-1] x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (Select0 <t> (BLSRL x))
 	for {
 		t := v.Type
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64ADDLconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64ADDLconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpSelect0)
@@ -3166,7 +3166,7 @@ func rewriteValueAMD64_OpAMD64ANDQ(v *Value) bool {
 		break
 	}
 	// match: (ANDQ x (NOTQ y))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (ANDNQ x y)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
@@ -3175,7 +3175,7 @@ func rewriteValueAMD64_OpAMD64ANDQ(v *Value) bool {
 				continue
 			}
 			y := v_1.Args[0]
-			if !(buildcfg.GOAMD64 >= 3) {
+			if !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64ANDNQ)
@@ -3185,12 +3185,12 @@ func rewriteValueAMD64_OpAMD64ANDQ(v *Value) bool {
 		break
 	}
 	// match: (ANDQ x (NEGQ x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (BLSIQ x)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64NEGQ || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64NEGQ || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64BLSIQ)
@@ -3200,13 +3200,13 @@ func rewriteValueAMD64_OpAMD64ANDQ(v *Value) bool {
 		break
 	}
 	// match: (ANDQ <t> x (ADDQconst [-1] x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (Select0 <t> (BLSRQ x))
 	for {
 		t := v.Type
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64ADDQconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64ADDQconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpSelect0)
@@ -3560,7 +3560,7 @@ func rewriteValueAMD64_OpAMD64BSWAPL(v *Value) bool {
 		return true
 	}
 	// match: (BSWAPL x:(MOVLload [i] {s} p mem))
-	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 3
+	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 4
 	// result: @x.Block (MOVBELload [i] {s} p mem)
 	for {
 		x := v_0
@@ -3571,7 +3571,7 @@ func rewriteValueAMD64_OpAMD64BSWAPL(v *Value) bool {
 		s := auxToSym(x.Aux)
 		mem := x.Args[1]
 		p := x.Args[0]
-		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 3) {
+		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		b = x.Block
@@ -3622,7 +3622,7 @@ func rewriteValueAMD64_OpAMD64BSWAPQ(v *Value) bool {
 		return true
 	}
 	// match: (BSWAPQ x:(MOVQload [i] {s} p mem))
-	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 3
+	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 4
 	// result: @x.Block (MOVBEQload [i] {s} p mem)
 	for {
 		x := v_0
@@ -3633,7 +3633,7 @@ func rewriteValueAMD64_OpAMD64BSWAPQ(v *Value) bool {
 		s := auxToSym(x.Aux)
 		mem := x.Args[1]
 		p := x.Args[0]
-		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 3) {
+		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		b = x.Block
@@ -11605,7 +11605,7 @@ func rewriteValueAMD64_OpAMD64MOVLstore(v *Value) bool {
 		return true
 	}
 	// match: (MOVLstore [i] {s} p x:(BSWAPL w) mem)
-	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 3
+	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 4
 	// result: (MOVBELstore [i] {s} p w mem)
 	for {
 		i := auxIntToInt32(v.AuxInt)
@@ -11617,7 +11617,7 @@ func rewriteValueAMD64_OpAMD64MOVLstore(v *Value) bool {
 		}
 		w := x.Args[0]
 		mem := v_2
-		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 3) {
+		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64MOVBELstore)
@@ -12510,7 +12510,7 @@ func rewriteValueAMD64_OpAMD64MOVQstore(v *Value) bool {
 		return true
 	}
 	// match: (MOVQstore [i] {s} p x:(BSWAPQ w) mem)
-	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 3
+	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 4
 	// result: (MOVBEQstore [i] {s} p w mem)
 	for {
 		i := auxIntToInt32(v.AuxInt)
@@ -12522,7 +12522,7 @@ func rewriteValueAMD64_OpAMD64MOVQstore(v *Value) bool {
 		}
 		w := x.Args[0]
 		mem := v_2
-		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 3) {
+		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64MOVBEQstore)
@@ -13427,7 +13427,7 @@ func rewriteValueAMD64_OpAMD64MOVWstore(v *Value) bool {
 		return true
 	}
 	// match: (MOVWstore [i] {s} p x:(ROLWconst [8] w) mem)
-	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 3
+	// cond: x.Uses == 1 && buildcfg.GOAMD64 >= 4
 	// result: (MOVBEWstore [i] {s} p w mem)
 	for {
 		i := auxIntToInt32(v.AuxInt)
@@ -13439,7 +13439,7 @@ func rewriteValueAMD64_OpAMD64MOVWstore(v *Value) bool {
 		}
 		w := x.Args[0]
 		mem := v_2
-		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 3) {
+		if !(x.Uses == 1 && buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64MOVBEWstore)
@@ -16322,7 +16322,7 @@ func rewriteValueAMD64_OpAMD64SARL(v *Value) bool {
 		return true
 	}
 	// match: (SARL l:(MOVLload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SARXLload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -16334,7 +16334,7 @@ func rewriteValueAMD64_OpAMD64SARL(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SARXLload)
@@ -16566,7 +16566,7 @@ func rewriteValueAMD64_OpAMD64SARQ(v *Value) bool {
 		return true
 	}
 	// match: (SARQ l:(MOVQload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SARXQload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -16578,7 +16578,7 @@ func rewriteValueAMD64_OpAMD64SARQ(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SARXQload)
@@ -21153,7 +21153,7 @@ func rewriteValueAMD64_OpAMD64SHLL(v *Value) bool {
 		return true
 	}
 	// match: (SHLL l:(MOVLload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SHLXLload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -21165,7 +21165,7 @@ func rewriteValueAMD64_OpAMD64SHLL(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SHLXLload)
@@ -21409,7 +21409,7 @@ func rewriteValueAMD64_OpAMD64SHLQ(v *Value) bool {
 		return true
 	}
 	// match: (SHLQ l:(MOVQload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SHLXQload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -21421,7 +21421,7 @@ func rewriteValueAMD64_OpAMD64SHLQ(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SHLXQload)
@@ -21836,7 +21836,7 @@ func rewriteValueAMD64_OpAMD64SHRL(v *Value) bool {
 		return true
 	}
 	// match: (SHRL l:(MOVLload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SHRXLload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -21848,7 +21848,7 @@ func rewriteValueAMD64_OpAMD64SHRL(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SHRXLload)
@@ -22080,7 +22080,7 @@ func rewriteValueAMD64_OpAMD64SHRQ(v *Value) bool {
 		return true
 	}
 	// match: (SHRQ l:(MOVQload [off] {sym} ptr mem) x)
-	// cond: buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)
+	// cond: buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)
 	// result: (SHRXQload [off] {sym} ptr x mem)
 	for {
 		l := v_0
@@ -22092,7 +22092,7 @@ func rewriteValueAMD64_OpAMD64SHRQ(v *Value) bool {
 		mem := l.Args[1]
 		ptr := l.Args[0]
 		x := v_1
-		if !(buildcfg.GOAMD64 >= 3 && canMergeLoad(v, l) && clobber(l)) {
+		if !(buildcfg.GOAMD64 >= 4 && canMergeLoad(v, l) && clobber(l)) {
 			break
 		}
 		v.reset(OpAMD64SHRXQload)
@@ -23644,12 +23644,12 @@ func rewriteValueAMD64_OpAMD64XORL(v *Value) bool {
 		break
 	}
 	// match: (XORL x (ADDLconst [-1] x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (BLSMSKL x)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64ADDLconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64ADDLconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64BLSMSKL)
@@ -24111,12 +24111,12 @@ func rewriteValueAMD64_OpAMD64XORQ(v *Value) bool {
 		break
 	}
 	// match: (XORQ x (ADDQconst [-1] x))
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (BLSMSKQ x)
 	for {
 		for _i0 := 0; _i0 <= 1; _i0, v_0, v_1 = _i0+1, v_1, v_0 {
 			x := v_0
-			if v_1.Op != OpAMD64ADDQconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 3) {
+			if v_1.Op != OpAMD64ADDQconst || auxIntToInt32(v_1.AuxInt) != -1 || x != v_1.Args[0] || !(buildcfg.GOAMD64 >= 4) {
 				continue
 			}
 			v.reset(OpAMD64BLSMSKQ)
@@ -24679,11 +24679,11 @@ func rewriteValueAMD64_OpBitLen16(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (BitLen16 x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (BSRL (LEAL1 <typ.UInt32> [1] (MOVWQZX <typ.UInt32> x) (MOVWQZX <typ.UInt32> x)))
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64BSRL)
@@ -24696,12 +24696,12 @@ func rewriteValueAMD64_OpBitLen16(v *Value) bool {
 		return true
 	}
 	// match: (BitLen16 <t> x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (NEGQ (ADDQconst <t> [-32] (LZCNTL (MOVWQZX <x.Type> x))))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64NEGQ)
@@ -24722,11 +24722,11 @@ func rewriteValueAMD64_OpBitLen32(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (BitLen32 x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (Select0 (BSRQ (LEAQ1 <typ.UInt64> [1] (MOVLQZX <typ.UInt64> x) (MOVLQZX <typ.UInt64> x))))
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpSelect0)
@@ -24741,12 +24741,12 @@ func rewriteValueAMD64_OpBitLen32(v *Value) bool {
 		return true
 	}
 	// match: (BitLen32 <t> x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (NEGQ (ADDQconst <t> [-32] (LZCNTL x)))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64NEGQ)
@@ -24765,12 +24765,12 @@ func rewriteValueAMD64_OpBitLen64(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (BitLen64 <t> x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (ADDQconst [1] (CMOVQEQ <t> (Select0 <t> (BSRQ x)) (MOVQconst <t> [-1]) (Select1 <types.TypeFlags> (BSRQ x))))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64ADDQconst)
@@ -24789,12 +24789,12 @@ func rewriteValueAMD64_OpBitLen64(v *Value) bool {
 		return true
 	}
 	// match: (BitLen64 <t> x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (NEGQ (ADDQconst <t> [-64] (LZCNTQ x)))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64NEGQ)
@@ -24813,11 +24813,11 @@ func rewriteValueAMD64_OpBitLen8(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (BitLen8 x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (BSRL (LEAL1 <typ.UInt32> [1] (MOVBQZX <typ.UInt32> x) (MOVBQZX <typ.UInt32> x)))
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64BSRL)
@@ -24830,12 +24830,12 @@ func rewriteValueAMD64_OpBitLen8(v *Value) bool {
 		return true
 	}
 	// match: (BitLen8 <t> x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (NEGQ (ADDQconst <t> [-32] (LZCNTL (MOVBQZX <x.Type> x))))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64NEGQ)
@@ -25805,11 +25805,11 @@ func rewriteValueAMD64_OpCtz16(v *Value) bool {
 func rewriteValueAMD64_OpCtz16NonZero(v *Value) bool {
 	v_0 := v.Args[0]
 	// match: (Ctz16NonZero x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTL)
@@ -25817,11 +25817,11 @@ func rewriteValueAMD64_OpCtz16NonZero(v *Value) bool {
 		return true
 	}
 	// match: (Ctz16NonZero x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (BSFL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64BSFL)
@@ -25835,11 +25835,11 @@ func rewriteValueAMD64_OpCtz32(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (Ctz32 x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTL)
@@ -25847,11 +25847,11 @@ func rewriteValueAMD64_OpCtz32(v *Value) bool {
 		return true
 	}
 	// match: (Ctz32 x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (Select0 (BSFQ (BTSQconst <typ.UInt64> [32] x)))
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpSelect0)
@@ -25868,11 +25868,11 @@ func rewriteValueAMD64_OpCtz32(v *Value) bool {
 func rewriteValueAMD64_OpCtz32NonZero(v *Value) bool {
 	v_0 := v.Args[0]
 	// match: (Ctz32NonZero x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTL)
@@ -25880,11 +25880,11 @@ func rewriteValueAMD64_OpCtz32NonZero(v *Value) bool {
 		return true
 	}
 	// match: (Ctz32NonZero x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (BSFL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64BSFL)
@@ -25898,11 +25898,11 @@ func rewriteValueAMD64_OpCtz64(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (Ctz64 x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTQ x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTQ)
@@ -25910,12 +25910,12 @@ func rewriteValueAMD64_OpCtz64(v *Value) bool {
 		return true
 	}
 	// match: (Ctz64 <t> x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (CMOVQEQ (Select0 <t> (BSFQ x)) (MOVQconst <t> [64]) (Select1 <types.TypeFlags> (BSFQ x)))
 	for {
 		t := v.Type
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64CMOVQEQ)
@@ -25937,11 +25937,11 @@ func rewriteValueAMD64_OpCtz64NonZero(v *Value) bool {
 	b := v.Block
 	typ := &b.Func.Config.Types
 	// match: (Ctz64NonZero x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTQ x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTQ)
@@ -25949,11 +25949,11 @@ func rewriteValueAMD64_OpCtz64NonZero(v *Value) bool {
 		return true
 	}
 	// match: (Ctz64NonZero x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (Select0 (BSFQ x))
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpSelect0)
@@ -25983,11 +25983,11 @@ func rewriteValueAMD64_OpCtz8(v *Value) bool {
 func rewriteValueAMD64_OpCtz8NonZero(v *Value) bool {
 	v_0 := v.Args[0]
 	// match: (Ctz8NonZero x)
-	// cond: buildcfg.GOAMD64 >= 3
+	// cond: buildcfg.GOAMD64 >= 4
 	// result: (TZCNTL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 >= 3) {
+		if !(buildcfg.GOAMD64 >= 4) {
 			break
 		}
 		v.reset(OpAMD64TZCNTL)
@@ -25995,11 +25995,11 @@ func rewriteValueAMD64_OpCtz8NonZero(v *Value) bool {
 		return true
 	}
 	// match: (Ctz8NonZero x)
-	// cond: buildcfg.GOAMD64 < 3
+	// cond: buildcfg.GOAMD64 < 4
 	// result: (BSFL x)
 	for {
 		x := v_0
-		if !(buildcfg.GOAMD64 < 3) {
+		if !(buildcfg.GOAMD64 < 4) {
 			break
 		}
 		v.reset(OpAMD64BSFL)
