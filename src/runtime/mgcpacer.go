@@ -1276,13 +1276,10 @@ func setGCPercent(in int32) (out int32) {
 
 func readGOGC() int32 {
 	p := gogetenv("GOGC")
-	if p == "off" {
-		return -1
-	}
 	if n, ok := atoi32(p); ok {
 		return n
 	}
-	return 100
+	return -1
 }
 
 // setMemoryLimit updates memoryLimit. commit must be called after
@@ -1322,7 +1319,9 @@ func setMemoryLimit(in int64) (out int64) {
 
 func readGOMEMLIMIT() int64 {
 	p := gogetenv("GOMEMLIMIT")
-	if p == "" || p == "off" {
+	if p == "" {
+		return 268435456
+	} else if p == "off" {
 		return maxInt64
 	}
 	n, ok := parseByteCount(p)
