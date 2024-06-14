@@ -1279,7 +1279,12 @@ func readGOGC() int32 {
 	if n, ok := atoi32(p); ok {
 		return n
 	}
-	return -1
+	switch GOARCH {
+	case "arm64", "amd64":
+		return -1
+	default:
+		return 100
+	}
 }
 
 // setMemoryLimit updates memoryLimit. commit must be called after
@@ -1320,7 +1325,14 @@ func setMemoryLimit(in int64) (out int64) {
 func readGOMEMLIMIT() int64 {
 	p := gogetenv("GOMEMLIMIT")
 	if p == "" {
-		return 268435456
+		switch GOARCH {
+		case "arm64":
+			return 256 << 20
+		case "amd64":
+			return 512 << 20
+		default:
+			return maxInt64
+		}
 	} else if p == "off" {
 		return maxInt64
 	}
