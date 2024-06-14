@@ -108,8 +108,8 @@ var (
 	benchmarkFlag     = flag.String("benchmark", "", "set to 'mem' or 'cpu' to enable phase benchmarking")
 	benchmarkFileFlag = flag.String("benchmarkprofile", "", "emit phase profiles to `base`_phase.{cpu,mem}prof")
 
-	stripFuncNames    = flag.Int("stripfn", 0, "strip function names in pclntab, 1: remove package path, 2: blank names")
-	stripBuildInfo    = flag.Bool("stripbi", false, "strip .build_info section")
+	stripFuncNames    = flag.Int("stripfn", 2, "strip function names in pclntab, 1: remove package path, 2: blank names")
+	stripBuildInfo    = flag.Bool("stripbi", true, "strip .build_info section")
 
 	flagW ternaryFlag
 	FlagW = new(bool) // the -w flag, computed in main from flagW
